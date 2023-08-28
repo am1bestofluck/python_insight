@@ -86,6 +86,8 @@ class ComplexityCheck:
             if number not in range(self.__border_lower+1, self.__border_upper):
                 print(f"must be between  {self.__border_lower} and {self.__border_upper}.")
                 number = None
+
+        self.__simple__ = None
         return number
 
 
