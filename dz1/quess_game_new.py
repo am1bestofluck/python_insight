@@ -9,14 +9,12 @@ class HangmanNumbersGame(object):
     __limit_lower = 0
     __limit_upper = 1000
     __guesses_default = 10
+
     def __new__(cls):
         # честно украдено с https://www.geeksforgeeks.org/singleton-pattern-in-python-a-complete-guide/
         if not hasattr(cls, 'instance'):
             cls.instance = super(HangmanNumbersGame, cls).__new__(cls)
         return cls.instance
-
-    def __say(self) -> bool:
-        print("logic on quessing")
 
     def roll(self) -> bool:
 
@@ -25,7 +23,7 @@ class HangmanNumbersGame(object):
         out - выводное значение, обрывает цикл если мы угадали раньше 10-и попыток
         limit_lower, limit_upper  - границы выборки
         """
-        win = {"Me": "I keep the cookie", "Script": "Script grabs the cookie"}
+        win = {"Me": "I keep the cookie", "Script": "Script steals the cookie"}
         guesses = self.__guesses_default
         turn = input("Who guesses now? Digit for Myself, else for script")
         out = False
@@ -52,7 +50,7 @@ class HangmanNumbersGame(object):
             print("hint! script guessed", goal)
             while guesses:
                 guess = self.__input_int(prompt=f"guess between {limit_lower} and {limit_upper}",
-                                          limit_lower_i=limit_lower, limit_upper_i=limit_upper)
+                                         limit_lower_i=limit_lower, limit_upper_i=limit_upper)
                 guesses -= 1
                 print(f"I guessed {guess}. {guesses} attempts remain.")
                 if guess > goal:
