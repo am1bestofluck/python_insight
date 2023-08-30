@@ -11,10 +11,11 @@ def main(a,b,c):
     discriminant = b**2 - 4*a*c
     if discriminant>=0:
         raise ValueError("Мы фокусируемся на негативах")
-    d_ = complex(discriminant,1)
+    d_ = complex(round(sqrt(abs(discriminant)),2),1)
     print(d_)
-    x1=-(b+sqrt(d_))/2*a
-    x2=-(b-sqrt(d_))/2*a
+    x1=(-b+d_)/2*a
+    x2=(-b-d_)/2*a
     print(x1,x2)
+
 
 
