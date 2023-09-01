@@ -30,13 +30,16 @@ class MainWindow(QMainWindow):
         self.setCentralWidget(structure)
 
     def f_eval(self):
-        print("1:",self.i_first.text())
+        print("1:", self.i_first.text())
         self.label.setText(f"{self.i_first.text()} = {None} ")
+
+
 def main():
     core = QApplication([])
     window = MainWindow()
     window.show()
     core.exec()
+
 
 if __name__ == '__main__':
     main()
