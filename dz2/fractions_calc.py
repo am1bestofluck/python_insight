@@ -53,6 +53,8 @@ class FractionsCalc:
         out: tuple = (None,)
         assertion_args = [None, None]
         args[0], args[1] = (int(args[0][0]), int(args[0][1])), (int(args[1][0]), int(args[1][1]))
+        if not args[0][1] or not args[1][1]:
+            return "error, zero division"
         match args[2]:
             case "add":
                 args_m = self.__to_common_denominator(args[0], args[1])
@@ -95,7 +97,7 @@ class FractionsCalc:
 
 def main():
     # glhf!
-    a = FractionsCalc(equation="4/5+5/20")
+    a = FractionsCalc(equation="0/0+5/20")
     print(a.eval())
     a.get_next(equation="2/3*4/5")
     print(a.eval())
