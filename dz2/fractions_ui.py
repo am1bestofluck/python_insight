@@ -9,11 +9,12 @@
 from PyQt6.QtWidgets import (QApplication, QMainWindow,
                              QPushButton, QLineEdit, QVBoxLayout, QWidget, QLabel)
 
+from fractions_calc import FractionsCalc
 
 class MainWindow(QMainWindow):
     def __init__(self):
         super().__init__()
-
+        self.calc = FractionsCalc()
         self.setWindowTitle("Fractions calc")
         self.b_eval = QPushButton("eval")
         self.label = QLabel()
@@ -30,8 +31,9 @@ class MainWindow(QMainWindow):
         self.setCentralWidget(structure)
 
     def f_eval(self):
-        print("1:", self.i_first.text())
-        self.label.setText(f"{self.i_first.text()} = {None} ")
+        # print("1:", self.i_first.text())
+        self.calc.get_next(self.i_first.text())
+        self.label.setText(f"{self.i_first.text()} = {self.calc.eval()} ")
 
 
 def main():
