@@ -38,10 +38,9 @@ def main(*, friends: int, items_pool: int, items_per_friend: int):
     :return: dict[Container]
     """
     assert items_per_friend <= items_pool
-    assert items_pool <= len(printable)
     overall_items = dict()
     for i in range(friends):
-        overall_items[i] = set(printable[i] for i in sample(range(items_pool), k=items_per_friend))
+        overall_items[i] = set(i for i in sample(range(items_pool), k=items_per_friend))
     out = {
         "unique": set(),
         "shared": set()
@@ -53,9 +52,9 @@ def main(*, friends: int, items_pool: int, items_per_friend: int):
     buffer_shared = overall_items[0]
     for i in range(friends):
         try:
-            out["shared"] = overall_items[i].intersection(overall_items[i+1]) if not out["shared"] else overall_items[i]
+            out["shared"] = overall_items[i] if not out["shared"] else out["shared"].intersection(overall_items[i])
         except KeyError:
-            pass # expected behavior
+            pass
 
         out["unique"] = overall_items[i].difference(temp_diff)
         temp_diff = temp_diff.union(overall_items[i])
