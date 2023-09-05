@@ -58,6 +58,9 @@ def main(*, friends: int, items_pool: int, items_per_friend: int):
 
         out["unique"] = overall_items[i].difference(temp_diff)
         temp_diff = temp_diff.union(overall_items[i])
+        other_friends = list(range(friends)).remove(i)
+        for j in other_friends:
+            pass
     return overall_items, out
 
 

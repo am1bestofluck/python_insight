@@ -1,1 +1,1 @@
-../sem2/timeout_1.py
+../sem3/timeout_1.py
