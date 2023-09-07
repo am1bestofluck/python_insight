@@ -7,6 +7,7 @@ from pprint import pp
 
 
 class Matrix:
+    # глобальные переменные нужны если мы её рандомим
     MAX_WIDTH = 20
     MAX_HEIGHT = 20
     MAX_UNIT = 100
@@ -15,9 +16,9 @@ class Matrix:
     def __init__(self, height=None, width=None):
         self.__width = width if width else choice(range(1, Matrix.MAX_WIDTH))
         self.__height = height if height else choice(range(1, Matrix.MAX_HEIGHT))
-        self.__field = self.rebuild_matrix()
+        self.__field = self.__rebuild_matrix()
 
-    def rebuild_matrix(self):
+    def __rebuild_matrix(self):
         base = []
         for i in range(self.__height):
             base.append(sample(range(Matrix.MAX_UNIT), k=self.__width))
@@ -55,7 +56,7 @@ class Matrix:
 def main():
     a = Matrix()
     pp((a, a.get()))
-    a.rotate(1, 0)
+    a.rotate(1, 0)# ^^
 
 
 if __name__ == '__main__':
