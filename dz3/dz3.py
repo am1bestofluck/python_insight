@@ -11,7 +11,8 @@
 from random import sample, choice, choices
 from string import ascii_lowercase
 from itertools import permutations
-from pprint import PrettyPrinter
+from pprint import pp
+
 
 def main(bag_volume_i: int, items: dict):
     if sum(items.values()) < bag_volume_i:
@@ -23,18 +24,24 @@ def main(bag_volume_i: int, items: dict):
         temp_sum = 0
         counter = 0
         while temp_sum < bag_volume_i:
-            option[i[counter]] = items[i[counter]]
-            temp_sum += items[i[counter]]
-            counter +=1
+            if temp_sum + items[i[counter]] < bag_volume_i:
+                option[i[counter]] = items[i[counter]]
+                temp_sum += items[i[counter]]
+                counter += 1
+            else:
+                option["weight"] = temp_sum
+                break
+
         out.add(str(option))
     return out
 
 
 if __name__ == '__main__':
+    print("Явный недостаток решения(кроме того что это ручной перебор",
+          "), в том что перебор считает наборы вещей 'абв' и 'бва' разными.")
     items_qua = choice(range(1, 10))
     max_weight_per_item = 20
     bag_volume = choice(range(1, 40))
-
     names = sample(ascii_lowercase, k=items_qua)
     weights = choices(range(1, max_weight_per_item), k=items_qua)
     all_items = dict()
@@ -43,4 +50,4 @@ if __name__ == '__main__':
 
     print(f"{all_items=}")
     print(f"{bag_volume=}")
-    print(f"out={str(main(bag_volume, all_items))}")
+    pp(main(bag_volume, all_items))
