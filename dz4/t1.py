@@ -51,15 +51,11 @@ class Matrix:
         self.__field = temp
         self.__width, self.__height = self.__height, self.__width
 
-    def __counter_clock_wise(self):
-        pass
-
 
 def main():
     a = Matrix()
-    pp(a)
-    pp(a.get())
-    a.rotate(1, 0)  # , 1, 0, 0)
+    pp((a, a.get()))
+    a.rotate(1, 0)
 
 
 if __name__ == '__main__':
