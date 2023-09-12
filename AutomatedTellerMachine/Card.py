@@ -14,7 +14,8 @@ class Card:
         return self.__number
     def get_pin(self):
         return f"Покрутив карту в руках мы заметили нацарапанные цифры {str(self.__number)[-5:]}"
-
+    def __str__(self):
+        return f"Карточка с номером {self.__number}"
 if __name__ == '__main__':
     card = Card(1234_0000_0001_0000)
     print(card.get(),card.get_pin())
