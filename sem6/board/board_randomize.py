@@ -34,11 +34,23 @@ def new_set() -> list[tuple[int, int]]:
         out.append(current_queen)
     return out
 
+def new_set_alt() -> list[tuple[int,int]]:
+    out = []
+    a = init_field()
+    first_queen = choices(range(len(a)), k=2)
+    put_queen(a, first_queen)
+
+    while len(out)!=8:
+        place = choices(range(len(a)),k=2)
+        if __pos_valid(a,place) and not a[place[0]][place[1]]:
+            put_queen(a,place)
+            out.append(place)
+    return out
 
 def main():
     cases = 4
     while cases:
-        deck = new_set()
+        deck = new_set_alt()
         a = rigged_case(*deck)
         if a:
             print(INIT - datetime.now())
