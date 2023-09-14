@@ -53,7 +53,7 @@ def main():
         deck = new_set_alt()
         a = rigged_case(*deck)
         if a:
-            print(INIT - datetime.now())
+            print((datetime.now() - INIT).seconds)
             cases -= 1
 
 
