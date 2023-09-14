@@ -11,12 +11,11 @@
  а если бьют - ложь.
 """
 from copy import deepcopy
-
+from pprint import pp
 
 def init_field(size: int = 8) -> list[list[int]]:
     """
     пересоздаём доску
-    :return:
     """
     out = []
     buffer = [0] * size
@@ -106,12 +105,12 @@ def rigged_case(*positions: tuple[int, int]) -> bool:
     test = init_field()
     for i in positions:
         put_queen(test, i)
+
     for i in positions:
         if not __pos_valid(test, i):
             return False
+    pp(test)
     return True
-
-    pass
 
 
 if __name__ == '__main__':
