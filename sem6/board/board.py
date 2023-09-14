@@ -16,11 +16,14 @@ from pprint import pp
 def init_field(size: int = 8) -> list[list[int]]:
     """
     пересоздаём доску
+    # я знаю что можно сделать в одну строку. Там похерились указатели.
     """
     out = []
-    buffer = [0] * size
     for i in range(size):
-        out.append(deepcopy(buffer))
+        temp = []
+        for j in range(size):
+            temp.append(0)
+        out.append(temp)
     return out
 
 
@@ -36,8 +39,8 @@ def __pos_valid(desk: list[list[int]], pos: tuple[int, int]) -> bool:
         return False
     # 12-6
     temp = 0
-    for i in range(0, len(desk)):
-        temp += desk[pos[1]][i]
+    for i in range(len(desk)):
+        temp += desk[i][pos[1]]
         if temp > limit:
             return False
     # 1-8
@@ -55,7 +58,7 @@ def __pos_valid(desk: list[list[int]], pos: tuple[int, int]) -> bool:
             if temp > limit:
                 return False
         except IndexError:
-            break  # expected behavior
+            continue  # expected behavior
     j, k = pos
     while True:
         try:
@@ -109,6 +112,7 @@ def rigged_case(*positions: tuple[int, int]) -> bool:
     for i in positions:
         if not __pos_valid(test, i):
             return False
+    pp(positions)
     pp(test)
     return True
 
