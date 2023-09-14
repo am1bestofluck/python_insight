@@ -10,7 +10,6 @@
  Если ферзи не бьют друг друга верните истину,
  а если бьют - ложь.
 """
-from pprint import pp
 from copy import deepcopy
 
 
@@ -75,10 +74,10 @@ def __pos_valid(desk: list[list[int]], pos: tuple[int, int]) -> bool:
         try:
             temp += desk[j][k]
             j += 1
-            if j <0:
+            if j < 0:
                 break
             k -= 1
-            if k <0:
+            if k < 0:
                 break
             if temp > limit:
                 return False
@@ -88,7 +87,7 @@ def __pos_valid(desk: list[list[int]], pos: tuple[int, int]) -> bool:
     while True:
         try:
             j -= 1
-            if j <0:
+            if j < 0:
                 break
             k += 1
             temp += desk[j][k]
@@ -100,10 +99,9 @@ def __pos_valid(desk: list[list[int]], pos: tuple[int, int]) -> bool:
     return True
 
 
-def rigged_case(*positions:tuple[int,int]):
+def rigged_case(*positions: tuple[int, int]) -> bool:
     """
-    тестовый случай, запускаем сценарий который точно работает
-    :return:
+    тестируем вариант доски
     """
     test = init_field()
     for i in positions:
@@ -118,3 +116,4 @@ def rigged_case(*positions:tuple[int,int]):
 
 if __name__ == '__main__':
     print(rigged_case((0, 0), (1, 6), (2, 4), (3, 7), (4, 1), (5, 3), (6, 5), (7, 2)))
+    print(rigged_case((0, 0), (1, 1)))
