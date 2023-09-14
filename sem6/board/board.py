@@ -10,4 +10,34 @@
  Если ферзи не бьют друг друга верните истину,
  а если бьют - ложь.
 """
-# Теория графов без классов, методисты "ударились"
+from pprint import pp
+
+
+def init_field() -> list[list[int]]:
+    """
+    пересоздаём доску
+    :return:
+    """
+    return [[0] * 8] * 8
+
+
+def put_queen(desk: list[list[int]], pos: tuple[int] = None):
+    """ставим королеву"""
+    pass
+
+
+def __draw_threats():
+    """закрашиваем кресты"""
+    pass
+
+
+def rigged_case():
+    """
+    тестовый случай, запускаем сценарий который точно работает
+    :return:
+    """
+    pass
+
+
+if __name__ == '__main__':
+    pp(init_field())
