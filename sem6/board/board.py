@@ -31,8 +31,7 @@ def put_queen(desk: list[list[int]], pos: tuple[int, int] = None):
     desk[pos[0]][pos[1]] = 1
 
 
-def __pos_valid(desk: list[list[int]], pos: tuple[int, int]) -> bool:
-    limit = 1
+def __pos_valid(desk: list[list[int]], pos: tuple[int, int],limit:int = 1) -> bool:
 
     # 9-3
     if sum(desk[pos[0]]) > limit:

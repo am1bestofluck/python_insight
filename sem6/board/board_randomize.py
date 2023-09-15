@@ -7,11 +7,12 @@
 from random import choices, choice
 from winsound import Beep
 from board import init_field, put_queen, __pos_valid, rigged_case
-from datetime import  datetime
+from datetime import datetime
 
 INIT = datetime.now()
-def new_set() -> list[tuple[int, int]]:
 
+
+def new_set() -> list[tuple[int, int]]:
     out = []
     a = init_field()
     first_queen = choices(range(len(a)), k=2)
@@ -34,18 +35,37 @@ def new_set() -> list[tuple[int, int]]:
         out.append(current_queen)
     return out
 
-def new_set_alt() -> list[tuple[int,int]]:
+
+def __has_turns(deck: list[list[int]]) -> bool:
+    for floor in range(len(deck)):
+        for cell in range(len(deck)):
+            if __pos_valid(deck, (floor, cell), 0):
+                return True
+
+
+def new_set_alt() -> list[tuple[int, int]]:
     out = []
+    counter = 100
     a = init_field()
     first_queen = choices(range(len(a)), k=2)
     put_queen(a, first_queen)
+    out.append(first_queen)
 
-    while len(out)!=8:
-        place = choices(range(len(a)),k=2)
-        if __pos_valid(a,place) and not a[place[0]][place[1]]:
-            put_queen(a,place)
+    while len(out) != 8:
+        place = choices(range(len(a)), k=2)
+        if __pos_valid(a, place, limit=0) and not a[place[0]][place[1]]:
+            put_queen(a, place)
             out.append(place)
+        if len(out) == 8:
+            break
+        if not __has_turns(a):
+            out = []
+            a = init_field()
+            first_queen = choices(range(len(a)), k=2)
+            put_queen(a, first_queen)
+            out.append(first_queen)
     return out
+
 
 def main():
     cases = 4
