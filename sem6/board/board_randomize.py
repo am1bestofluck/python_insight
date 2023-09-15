@@ -6,7 +6,10 @@
 
 from random import choices, choice
 from winsound import Beep
-from board import init_field, put_queen, __pos_valid, rigged_case
+try:
+    from board import init_field, put_queen, __pos_valid, rigged_case
+except ImportError:
+    from .board import init_field, put_queen, __pos_valid, rigged_case
 from datetime import datetime
 
 INIT = datetime.now()
