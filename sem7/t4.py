@@ -19,7 +19,7 @@ def main(extention:str = ".rtf",
     # chdir("t4")
     for file_ in range(file_count):
         name = "".join(choices(ascii_letters, k=randint(min_name, max_name))) + extention
-        with open(name,"wb") as f:
+        with open(name,"xb") as f:
             f.write(randbytes(n=randint(min_size,max_size)))
 
 

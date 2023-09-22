@@ -6,7 +6,10 @@
 ✔ Количество файлов для каждого расширения различно.
 ✔ Внутри используйте вызов функции из прошлой задачи.
 """
-from t4 import main
+try:
+    from t4 import main
+except ImportError:
+    from .t4 import  main
 from os import chdir, mkdir
 from random import choice
 
@@ -22,7 +25,10 @@ def main_(exts: list[str] = EXTS):
         mkdir(DIR_NAME_)
         chdir(DIR_NAME_)
     for i in exts:
-        main(extention=i, file_count=choice(range(1, 10)))
+        try:
+            main(extention=i, file_count=choice(range(1, 10)))
+        except FileExistsError:
+            pass
 
 
 if __name__ == '__main__':

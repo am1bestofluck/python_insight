@@ -5,7 +5,10 @@
 (добавьте проверки).
 ✔ Существующие файлы не должны удаляться/изменяться в случае совпадения имён.
 """
-from t5 import main_ as m_i, EXTS
+try:
+    from t5 import main_ as m_i, EXTS, DIR_NAME_
+except ImportError:
+    from .t5 import main_ as m_i, EXTS, DIR_NAME_
 from pathlib import Path
 from os import chdir as cd, mkdir as md
 
