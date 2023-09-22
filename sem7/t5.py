@@ -18,12 +18,13 @@ DIR_NAME_ = "t5"
 
 
 def main_(exts: list[str] = EXTS):
-    global EXTS, DIR_NAME_
-    try:
-        chdir(DIR_NAME_)
-    except FileNotFoundError:
-        mkdir(DIR_NAME_)
-        chdir(DIR_NAME_)
+    """exts - список расширений для рандомных файлов"""
+    # global EXTS, DIR_NAME_
+    # try:
+    #     chdir(DIR_NAME_)
+    # except FileNotFoundError:
+    #     mkdir(DIR_NAME_)
+    #     chdir(DIR_NAME_)
     for i in exts:
         try:
             main(extention=i, file_count=choice(range(1, 10)))

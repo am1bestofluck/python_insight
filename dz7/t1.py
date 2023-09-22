@@ -21,7 +21,7 @@ def main(
         *,
         target_ext: str, saved_part: range,
         new_name: str, number_size: int, new_ext: str):
-    # таксссс. Писать код это самое простое.
+    """переименовываем файлы..."""
     target_ext_m = "."+target_ext.lower()
     counter = 0
     for path_, folder_, file_ in os.walk(folder_i):

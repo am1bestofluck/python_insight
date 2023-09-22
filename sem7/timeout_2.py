@@ -6,6 +6,7 @@
 import os
 from pathlib import Path
 from shutil import move as mv
+
 try:
     from timeout_1 import main as m_tm1, DIR_NAME as fld1, DIR_NAME_ as fld2, cd, md
     from t5 import EXTS
@@ -13,16 +14,19 @@ except ImportError:
     from .timeout_1 import main as m_tm1, DIR_NAME as fld1, DIR_NAME_ as fld2, cd, md
     from .t5 import EXTS
 
+nature_g = {
+    "vid": {EXTS[3]}, "img": {EXTS[0]}, "docs": {EXTS[-1], EXTS[-3]}, "music": {EXTS[-2]}
+}
 
 
-def main(folder_to_sort:Path):
-    nature = {
-        "vid": {EXTS[3]}, "img": {EXTS[0]}, "docs": {EXTS[-1], EXTS[-3]}, "music": {EXTS[-2]}
-    }
+def main(folder_to_sort: Path, extentions_dict: dict[str, set[str]] = nature_g):
+    """в folder_to_sort делаем папки по ключам extentions_dict, и перекладываем в них
+    файлы согласно расширениям из значений словаря"""
     cd(folder_to_sort)
+    nature = extentions_dict
     for key_ in nature:
         try:
-            md( key_)
+            md(key_)
         except FileExistsError:
             pass
     for i in os.listdir():

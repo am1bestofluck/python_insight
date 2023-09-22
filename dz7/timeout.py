@@ -5,7 +5,5 @@ from pathlib import Path
 # можно было чище конечно, но там весь семинар переписывать
 if __name__ == '__main__':
     root = Path.cwd()
-    folder = "timeout"
-    nonsense_files.main()
     cd(root)
     sorting.main(Path(sorting.fld1) / sorting.fld2)
