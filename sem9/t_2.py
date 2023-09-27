@@ -12,6 +12,7 @@ from random import choice
 
 
 def get_arguments(func: Callable):
+    print()
     def validate(*args, **kwargs):
         hc_attempts = range(1, 11)
         hc_secret = range(1, 101)
