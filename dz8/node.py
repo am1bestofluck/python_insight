@@ -61,6 +61,7 @@ class Node:
         return self.get_size()
 
     def to_dict(self):
-        return {"name": self.path, "size": self.disk_usage,
+        return {"path": self.path.as_posix(),
+                "size": self.disk_usage,
                 "nature": "File" if self.path.is_file() else "Folder",
                 "parent_folder":self.path.absolute().parts[-2]}

@@ -26,7 +26,7 @@ from extractor import Extractor
 def main(path_i: Path):
     a = LinkedList()
     a.build_by_dir(path_i)
-    b = Extractor(a)
+    b = Extractor(a,path_i.absolute())
     b.all_reports()
 
 
