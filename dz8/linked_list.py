@@ -1,10 +1,12 @@
 import os
 from pathlib import  Path
 
-
-from format import Format
-from node import Node
-
+try:
+    from format import Format
+    from node import Node
+except ImportError:
+    from .format import Format
+    from .node import Node
 
 class LinkedList:
     def __init__(self):

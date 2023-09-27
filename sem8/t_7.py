@@ -10,7 +10,10 @@ from pathlib import Path
 import pickle
 from pprint import pp
 
-from t_6 import IO
+try:
+    from t_6 import IO
+except ImportError:
+    from .t_6 import IO
 
 
 def csv_as_pickle(file_i: Path):

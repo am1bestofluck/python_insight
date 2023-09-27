@@ -3,9 +3,12 @@ import csv
 from pathlib import Path
 import pickle
 
-from linked_list import LinkedList
-from format import Format
-
+try:
+    from linked_list import LinkedList
+    from format import Format
+except ImportError:
+    from .linked_list import LinkedList
+    from .format import Format
 
 class Extractor:
     def __init__(self, item: LinkedList, output_folder: Path):

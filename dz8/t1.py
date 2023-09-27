@@ -10,17 +10,22 @@
 
 """
 import os
+from pathlib import Path
 
-from format import Format
+try:
+    from format import Format
+    from linked_list import LinkedList
+    from extractor import Extractor
+except ImportError:
+    from .format import Format
+    from .linked_list import LinkedList
+    from .extractor import Extractor
+
 # искать размер папки своей головой оказалось сложнее чем хотелось бы.
 # https://www.tutorialspoint.com/How-to-calculate-a-directory-size-using-Python
 # таааакс. Раз уж мы будем много добавлять, а читать - 1 раз и то не факт
 # то можно сделать односвязный список потому что на добавление o(1).
 
-from pprint import pp
-from pathlib import Path
-from linked_list import LinkedList
-from extractor import Extractor
 
 
 def main(path_i: Path):

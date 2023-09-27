@@ -16,8 +16,10 @@ from hashlib import md5
 from pathlib import Path
 from pprint import pp
 
-from t_3 import CSV_OUT
-
+try:
+    from t_3 import CSV_OUT
+except ImportError:
+    from .t_3 import CSV_OUT
 T4_OUT = Path("t4_out.json")
 
 
