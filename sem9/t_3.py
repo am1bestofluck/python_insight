@@ -1,54 +1,56 @@
 """
 Напишите декоратор, который сохраняет в json файл
 параметры декорируемой функции и результат, который она
-возвращает. При повторном вызове файл должен
-расширяться, а не перезаписываться.
+возвращает.                                                 +
+ При повторном вызове файл должен
+расширяться, а не перезаписываться.                         +
 Каждый ключевой параметр сохраните как отдельный ключ
-json словаря.
+json словаря.                                               +
 Для декорирования напишите функцию, которая может
-принимать как позиционные, так и ключевые аргументы.
-Имя файла должно совпадать с именем декорируемой
+принимать как позиционные, так и ключевые аргументы.        +
+Имя файла должно совпадать с именем декорируемой            +
 функции.
 
 """
-from json import loads, dump, load
+import json
+from pathlib import Path
 from typing import Callable
 
+try:
+    from t_2 import randomized
+except ImportError:
+    from .t_2 import randomized
 
-def jsonize( func):
-    def wrapper_j():
 
-def get_args(func) -> [Callable, bool]:
-    print("st")
 
+
+def to_json(func: Callable):
+    OUT = Path(f"{func.__name__}.json")
     def wrapper(*args, **kwargs):
-        list_args = [*args]
-        list_kwargs = [*kwargs.values()]
-        list_args.extend(list_kwargs)
-        return func(list_args)
+        nonlocal  OUT
+        print(args)
+        out = func(args[0], args[1])
 
-    print("ou")
+        print(f"{args} = {out}")
+        try:
+            with open(file=OUT, mode="rt+", encoding="utf-8") as output_j:
+                before = json.loads(output_j.read())
+        except (FileNotFoundError,json.JSONDecodeError):
+            before ={}
+        with open(file=OUT, mode="wt", encoding="utf-8") as output_j:
+            before.update({str(args): out})
+            before.update(kwargs)
+            output_j.write(json.dumps(before,indent=1))
+        return out
+
     return wrapper
 
 
-@get_args
-def sum_ints(list_: list[int]):
-    return sum(list_)
+@to_json
+def what_is_dry(a: int, b: int,**kwargs):
+    return randomized(a, b)
 
-
-out = "t4_out.json"
 
 if __name__ == '__main__':
-    to_json = {}
-    key = 1, 2, 4
-    to_json[str(key)] = sum_ints(*key)
-    with open(out, "r") as core:
-        try:
-            lines = core.readlines()
-            tmp = "".join(lines)
-            base = loads(tmp)
-        except:
-            base = {}
-    base.update(to_json)
-    with open(out, "w") as core:
-        dump(base,core)
+    a, b = int(input("attempts?")), int(input("secret?"))
+    what_is_dry(a, b,this_may_be_fun=True,is_it=False)

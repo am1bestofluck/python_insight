@@ -11,25 +11,27 @@ from typing import Callable
 from random import choice
 
 
-def outer_decor(func_in: Callable):
-    print("outer decor")
-    attempts = range(1, 11)
-    secrets = range(1, 101)
+def get_arguments(func: Callable):
+    def validate(*args, **kwargs):
+        hc_attempts = range(1, 11)
+        hc_secret = range(1, 101)
+        atts_ = args[0] if args[0] in hc_attempts else choice(hc_attempts)
+        secret_ = args[1] if args[1] in hc_secret else choice(hc_secret)
+        print(f"debug:{atts_=},{secret_=}")
+        return func(atts_, secret_)
 
-    def inner_decor(*args, **kwargs):
-        nonlocal attempts, secrets
-        guesses = args[0] if args[0] in attempts else choice(attempts)
-        secret = args[1] if args[1] in secrets else choice(secrets)
-        result = func_in(guesses, secret)
-        return result
-
-    return inner_decor
+    return validate
 
 
-@outer_decor
-def guess_game(guesses: int, secret: int):
-    print(locals())
+@get_arguments
+def randomized(attempts: int, secret: int) -> bool:
+    while attempts:
+        print(f"{attempts=}")
+        if int(input("guess?")) == secret:
+            return True
+        attempts -= 1
+    return False
 
 
 if __name__ == '__main__':
-    guess_game()
+    print(f"{randomized(5   ,5)=}")
