@@ -5,41 +5,31 @@
  числа в диапазоны [1, 100] и [1, 10].
 Если не входят, вызывать функцию со случайными числами
 из диапазонов.
-
 """
+
 from typing import Callable
 from random import choice
 
 
-def count_guesses(func) -> [Callable, bool]:
-    def wrapper(*args):
-        guesses_hc = range(1, 11)
-        secret_hc = range(1, 111)
+def outer_decor(func_in: Callable):
+    print("outer decor")
+    attempts = range(1, 11)
+    secrets = range(1, 101)
 
-        if args[0] not in guesses_hc:
-            guesses = choice(guesses_hc)
-        else:
-            guesses = args[0]
-        if args[1] not in secret_hc:
-            secret = choice(secret_hc)
-        else:
-            secret = args[1]
-        return func(guesses, secret)
+    def inner_decor(*args, **kwargs):
+        nonlocal attempts, secrets
+        guesses = args[0] if args[0] in attempts else choice(attempts)
+        secret = args[1] if args[1] in secrets else choice(secrets)
+        result = func_in(guesses, secret)
+        return result
 
-    return wrapper
+    return inner_decor
 
 
-@count_guesses
-def randomized(guesses, secret) -> bool:
-    while guesses:
-        print(f"{guesses=}")
-        if int(input("guess?")) == secret:
-            return True
-
-        guesses -= 1
-    print(f'не угадали!')
-    return False
+@outer_decor
+def guess_game(guesses: int, secret: int):
+    print(locals())
 
 
 if __name__ == '__main__':
-    print(randomized(1, 7))
+    guess_game()

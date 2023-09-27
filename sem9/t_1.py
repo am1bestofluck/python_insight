@@ -21,10 +21,10 @@ def count_guesses(guesses: int = 10) -> [Callable, bool]:
         while guesses:
             print(f"{guesses=}")
             if int(input("guess?")) == secret:
-                guesses_m += 1
-                print(f'угадали за  {guesses_m}!')
-                return True
 
+                print(f'угадали за  {guesses_m+1}!')
+                return True
+            guesses_m += 1
             guesses -= 1
         print(f'не угадали!')
         return False
@@ -33,4 +33,4 @@ def count_guesses(guesses: int = 10) -> [Callable, bool]:
 
 
 if __name__ == '__main__':
-    print(count_guesses(3)(30))
+    print(count_guesses(int(input("guesses?")))(int(input("secret?"))))
