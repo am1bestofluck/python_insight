@@ -22,11 +22,12 @@ def json_arg(name: Path):
             nonlocal name
             if not name.exists():
                 content = {}
-            with open(name, encoding="utf-8", mode="rt") as b4:
-                try:
-                    content: dict = json.loads(b4.read())
-                except json.JSONDecodeError:
-                    content = dict()
+            else:
+                with open(name, encoding="utf-8", mode="rt") as b4:
+                    try:
+                        content: dict = json.loads(b4.read())
+                    except json.JSONDecodeError:
+                        content = dict()
 
             res = func(*args)
             content.update(res)
@@ -72,7 +73,7 @@ def validate_input(func: Callable):
     return deco
 
 
-@repeat_n_times(3)
+@repeat_n_times(1)
 @json_arg(FILENAME)
 @validate_input
 def randomized(attempts: int, secret: int) -> bool:

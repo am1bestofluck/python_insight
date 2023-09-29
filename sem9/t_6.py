@@ -2,29 +2,91 @@
 Доработайте прошлую задачу добавив декоратор wraps в
 каждый из декораторов.
 """
+from functools import wraps
+import json
 from pathlib import Path
+from random import choice
 from typing import Callable
-from t_5 import json_arg, repeat_n_times, validate_input, randomized
 
 FILENAME = Path("t6_out.json")
 
-json_arg.__doc__ = "Переводим в json"
-repeat_n_times.__doc__ = "Повторяем n раз"
-validate_input.__doc__ = "Отсеиваем чушь"
-randomized.__doc__ = "Угадываем число"
+
+def json_arg(name: Path):
+    def to_json(func: Callable, **kwargs):
+        @wraps(to_json)
+        def json_wrapper(*args, **kwargs):
+            nonlocal name
+            if not name.exists():
+                content = {}
+            else:
+                with open(name, encoding="utf-8", mode="rt") as b4:
+                    try:
+                        content: dict = json.loads(b4.read())
+                    except json.JSONDecodeError:
+                        content = dict()
+
+            res = func(*args)
+            content.update(res)
+
+            with open(name, encoding="utf-8", mode="wt") as after:
+                json.dump(obj=content, fp=after, indent=1)
+            return res
+
+        return json_wrapper
+
+    return to_json
 
 
-def json_arg_u(name: Path):
-    json_arg(name)
+def repeat_n_times(n: int):
+    def repeat_deco(func: Callable):
+        @wraps(func)
+        def wrapper(*args, **kwargs):
+            nonlocal n
+            out = {}
+            for i in range(n):
+                func(args[0], args[1])
+
+            return
+
+        return wrapper
+
+    return repeat_deco
 
 
-def repeat_n_times_u(n: int):
-    repeat_n_times(n)
+def validate_input(func: Callable):
+    hc_attempts = range(1, 11)
+    hc_secret = range(1, 101)
+
+    @wraps(func)
+    def deco(*args, **kwargs):
+        """ok_v"""
+        nonlocal hc_secret, hc_attempts
+        a = args[0] if args[0] in hc_attempts else choice(hc_attempts)
+        b = args[1] if args[1] in hc_secret else choice(hc_secret)
+        print(f"debug:{a=},{b=}")
+        return {f"{a},{b}": func(a, b)}
+
+    return deco
 
 
-def validate_input_n(func: Callable):
-    validate_input(func)
+@repeat_n_times(1)
+@json_arg(FILENAME)
+@validate_input
+def randomized(attempts: int, secret: int) -> bool:
+    print('!')
+    while attempts:
+        print(f"{attempts=}")
+        if int(input("guess?")) == secret:
+            return True
+        attempts -= 1
+    return False
 
 
-def randomized_u(attempts: int, secret: int):
-    randomized(attempts, secret)
+# err = "Fail"
+# randomized.__doc__ = err
+# validate_input.__doc__ = err
+# json_arg.__doc__ = err
+# repeat_n_times.__doc__ = err
+
+if __name__ == '__main__':
+    print(*[i.__doc__ for i in (randomized, validate_input, json_arg, repeat_n_times)], sep="\n")
