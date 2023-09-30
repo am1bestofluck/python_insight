@@ -12,9 +12,12 @@ FILENAME = Path("t6_out.json")
 
 
 def json_arg(name: Path):
+    """fail_json_arg"""
     def to_json(func: Callable, **kwargs):
-        @wraps(to_json)
+        """fail_to_json"""
+        @wraps(func)
         def json_wrapper(*args, **kwargs):
+            """fail_json_wrapper"""
             nonlocal name
             if not name.exists():
                 content = {}
@@ -41,6 +44,7 @@ def repeat_n_times(n: int):
     def repeat_deco(func: Callable):
         @wraps(func)
         def wrapper(*args, **kwargs):
+            """fail"""
             nonlocal n
             out = {}
             for i in range(n):
@@ -73,7 +77,7 @@ def validate_input(func: Callable):
 @json_arg(FILENAME)
 @validate_input
 def randomized(attempts: int, secret: int) -> bool:
-    print('!')
+
     while attempts:
         print(f"{attempts=}")
         if int(input("guess?")) == secret:
@@ -83,10 +87,10 @@ def randomized(attempts: int, secret: int) -> bool:
 
 
 # err = "Fail"
-# randomized.__doc__ = err
+randomized.__doc__ = """success"""
 # validate_input.__doc__ = err
 # json_arg.__doc__ = err
 # repeat_n_times.__doc__ = err
 
 if __name__ == '__main__':
-    print(*[i.__doc__ for i in (randomized, validate_input, json_arg, repeat_n_times)], sep="\n")
+    print(help(randomized))
