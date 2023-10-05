@@ -10,23 +10,27 @@ list-архивы также являются свойствами экземп�
 # рузкий на отличьна
 
 class Archive:
-    _instance = None
+    _prev_int = []
+    _prev_str = []
 
-    def __new__(cls, *args, **kwargs):
-        if cls._instance is None:
-            cls.instance = super().__new__(cls)
-        return cls._instance
+    def __init__(self, who_wrote: str, this_task: int):
+        self.w = who_wrote
+        self.t = this_task
+        Archive._prev_str.append(who_wrote)
+        Archive._prev_int.append(this_task)
+    @classmethod
+    def test(cls):
+        """asd"""
+        return
+    @classmethod
+    def get_protected(cls):
+        """blah"""
+        return cls._prev_str, cls._prev_int
 
-    def __init__(self, name: str, price: int):
-        print("init")
-        self.names = [name]
-        self.prices = [price]
 
-
-a = Archive("lobsters", 3)
-print(a.__dict__)
-b = Archive("fish",5)
-print(b.__dict__)
-
-b = Archive()
-print(a == b)
+if __name__ == '__main__':
+    a = Archive("lobsters", 3)
+    print(a.get_protected())
+    b = Archive("fish", 5)
+    print(b.__dict__)
+    print(a.get_protected())
