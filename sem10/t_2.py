@@ -10,12 +10,12 @@
 
 
 class Rectangle:
-    def __int__(self, *args):
-        self.w = args[0]
+    def __init__(self, *args):
+        self.w = args[0][0]
         try:
-            self.h = args[1]
+            self.h = args[0][1]
         except IndexError:
-            self.h = args[0]
+            self.h = args[0][0]
 
     def per(self):
         return 2 * (self.h + self.w)

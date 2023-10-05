@@ -5,13 +5,6 @@
 
 from sem11.t_2 import Archive
 from sem11.t_1 import MyString
-try:
-    Archive.get_protected.__doc__ = "asd"
-except AttributeError:
-    print("""'Почему ты сделал ещё один класс?' Да вот почему.
-    Редактировать исходник - неок, а перезаписать докстринг метода - на 3.11 нельзя
-    Впрочем какое твоё дело.
-    UPD: в 3.13 уже можно :)""")
 
 MyString.__init__.__doc__ = "qwe"  # странно, а здесь перезаписывается
 MyString.__doc__ = "Строчка с цифровой подписью"
@@ -32,6 +25,14 @@ class ArchiveUpd(Archive):
 
 
 if __name__ == '__main__':
+    try:
+        Archive.get_protected.__doc__ = "asd"
+    except AttributeError:
+        pass
+        print("""'Почему ты сделал ещё один класс?' Да вот почему.
+        Редактировать исходник - неок, а перезаписать докстринг метода - на 3.11 нельзя
+        Впрочем какое твоё дело.
+        UPD: в 3.13 уже можно :)""")
     print(help(ArchiveUpd))
     print("\n*" * 3)
     print(help(MyString))
