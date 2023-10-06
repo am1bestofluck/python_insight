@@ -32,7 +32,7 @@ class Matrix:
         out = Matrix(self.rows, self.cols)
         for i in range(self.rows):
             for j in range(self.cols):
-                out.data[i][j] = self.data[i][j]+other.data[i][j]
+                out.data[i][j] = self.data[i][j] + other.data[i][j]
         return out
 
     def __mul__(self, other: 'Matrix'):
@@ -42,7 +42,7 @@ class Matrix:
         out = Matrix(self.rows, self.cols)
         for i in range(self.rows):
             for j in range(self.cols):
-                out.data[i][j] = self.data[i][j] * other.data[i][j]
+                out.data[i][j] = self.data[i][j] * other.data[j][i]
         return out
 
     def __eq__(self, other: 'Matrix'):
@@ -59,7 +59,7 @@ class Matrix:
         out = ""
         for i in range(self.rows):
             for j in range(self.cols):
-                out = out+f"{self.data[i][j]} "
+                out = out + f"{self.data[i][j]} "
             out = out.strip()
             out += "\n"
         return out
@@ -128,11 +128,17 @@ class Matrix:
         out = Matrix(self.rows, self.cols)
         for i in range(self.rows):
             for j in range(self.cols):
-                out.data[i][j] = self.data[i][j]+other.data[i][j]
+                out.data[i][j] = self.data[i][j] + other.data[i][j]
         return out
 
     def __mul__(self, other: 'Matrix'):
-        out = Matrix(self.cols,self.)
+        out = Matrix(self.cols, self.rows)
+        for number_row in range(self.rows):
+            for walk_cell in range(self.cols):
+                temp = 0
+                for walk_other in range(other.cols):
+                    temp += self.data[number_row][walk_cell] * other.data[number_row][walk_other]
+                out.data[number_row][walk_cell] = temp
         return out
 
     def __eq__(self, other: 'Matrix'):
@@ -149,7 +155,7 @@ class Matrix:
         out = ""
         for i in range(self.rows):
             for j in range(self.cols):
-                out = out+f"{self.data[i][j]} "
+                out = out + f"{self.data[i][j]} "
             out = out.strip()
             out += "\n"
         return out
@@ -160,28 +166,26 @@ class Matrix:
 
 
 if __name__ == '__main__':
-#     print()
-#     a = Matrix(4, 2)
-#     b = Matrix(2, 4)
-#     a = Matrix(2, 2, 1)
-#     b = Matrix(2, 2, 3)
-#     c = a+b
-#     print(*c.data, sep="\n")
-#     d = (Matrix(5, 5))
-#     try:
-#         print(d+c)
-#     except ValueError as e:
-#         print(e.args[0])
-#     a = Matrix(3, 3, 2)
-#     print(a)
-#     print(f"{a=}")
-#     b = Matrix(3, 3, 4)
-#     c = a * b
-#     print(*c.data, sep="\n")
-#     assert a * b == c
-#     assert a != b
-
-
+    #     print()
+    #     a = Matrix(4, 2)
+    #     b = Matrix(2, 4)
+    #     a = Matrix(2, 2, 1)
+    #     b = Matrix(2, 2, 3)
+    #     c = a+b
+    #     print(*c.data, sep="\n")
+    #     d = (Matrix(5, 5))
+    #     try:
+    #         print(d+c)
+    #     except ValueError as e:
+    #         print(e.args[0])
+    #     a = Matrix(3, 3, 2)
+    #     print(a)
+    #     print(f"{a=}")
+    #     b = Matrix(3, 3, 4)
+    #     c = a * b
+    #     print(*c.data, sep="\n")
+    #     assert a * b == c
+    #     assert a != b
 
     # Создаем матрицы
     matrix1 = Matrix(2, 3)
@@ -205,9 +209,9 @@ if __name__ == '__main__':
     # Выполняем операцию умножения матриц
     matrix3 = Matrix(3, 2)
     matrix3.data = [[1, 2], [3, 4], [5, 6]]
-
+    print(matrix3)
     matrix4 = Matrix(2, 2)
     matrix4.data = [[7, 8], [9, 10]]
-
+    print(matrix4)
     result = matrix3 * matrix4
     print(result)
