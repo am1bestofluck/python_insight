@@ -132,14 +132,20 @@ class Matrix:
         return out
 
     def __mul__(self, other: 'Matrix'):
-        out = Matrix(self.cols, self.rows)
+        out = Matrix(self.rows, self.cols)
+        i = 0
         for number_row in range(self.rows):
             for walk_cell in range(self.cols):
-                temp = 0
-                for walk_other in range(other.cols):
-                    temp += self.data[number_row][walk_cell] * other.data[number_row][walk_other]
-                out.data[number_row][walk_cell] = temp
+                tmp = [i[walk_cell] for i in other.data]
+                out.data[number_row][walk_cell] = Matrix.__mult(self.data[number_row], tmp)
         return out
+
+    @staticmethod
+    def __mult(a: [], b: []):
+        c = []
+        for i in range(len(a)):
+            c.append(a[i] * b[i])
+        return sum(c)
 
     def __eq__(self, other: 'Matrix'):
 
@@ -158,6 +164,7 @@ class Matrix:
                 out = out + f"{self.data[i][j]} "
             out = out.strip()
             out += "\n"
+        out = out.strip()
         return out
 
     def __repr__(self):
@@ -214,4 +221,6 @@ if __name__ == '__main__':
     matrix4.data = [[7, 8], [9, 10]]
     print(matrix4)
     result = matrix3 * matrix4
+    print(result)
+    print(result)
     print(result)
