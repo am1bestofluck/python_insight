@@ -40,6 +40,30 @@ get_subjects(self): метод, возвращающий список всех �
  список студентов и название предмета, и выводит информацию о студенте
   с наивысшим средним баллом по этому предмету.
 """
-class Student:
-    pass
 
+from dz12.subjs import get_subjects
+from dz12.Descriptor import TitleCaseASKII
+
+
+class Student:
+    def __init__(self, name, subjects_file):
+        raise NotImplemented
+
+    def add_subject(self, subject, grade, test_score):
+        raise NotImplemented
+
+    def get_average_grade(self):
+        raise NotImplemented
+
+    @staticmethod
+    def get_average_grades(students: list['Student']):
+        def calc_average(one: Student):
+            raise NotImplemented
+
+        for i in students:
+            calc_average(i)
+        raise NotImplemented  # зачем это в классе студент на.за.чем.
+
+    @staticmethod
+    def get_top_student(students, subject):
+        raise NotImplemented  # туда же. Что бы что. Зачем ячейке студент знать аналитику потока.
