@@ -8,9 +8,9 @@
 from sem11.t_6 import RectangleExtendedWithSquares
 
 
-class RectangeWithProperties(RectangleExtendedWithSquares):
-    def __init__(self, *args):
-        super().__init__(*args)
-
-    @property
+# class RectangeWithProperties(RectangleExtendedWithSquares):
+#     def __init__(self, *args):
+#         super().__init__(*args)
+#
+#     @property
 
