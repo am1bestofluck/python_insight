@@ -43,20 +43,20 @@ get_subjects(self): метод, возвращающий список всех �
 from copy import deepcopy
 import csv
 from string import digits
-from dz12.subjs import get_subjects
+from dz12.subjs import get_subjects as get_subjects_
 from dz12.Descriptor import TitleCaseASKII
 from pathlib import Path
 
 
 class Student:
     name = TitleCaseASKII(ban=digits)
-    grade_limit = range(2, 5+1)
-    test_limit = range(0, 100+1)
+    grade_limit = range(2, 5 + 1)
+    test_limit = range(0, 100 + 1)
 
     def __init__(self, name, subjects_file):
         self.name = name
         self._path = subjects_file
-        self.subjects = get_subjects(subjects_file)
+        self.subjects = get_subjects_(subjects_file)
 
     def add_subject(self, subject, grade=None, test_score=None):
         temp = {i: '' for i in self.subjects}
@@ -134,11 +134,27 @@ class Student:
     def get_subject_average(students, subject):
         raise NotImplemented
 
+    @staticmethod
+    def get_top_student(subject, *args):
+        def get_key(item):
+            nonlocal subject, tmp
+            return tmp[item][subject]['grades']
+
+        tmp = Student.get_average_grades(*args)
+        print(tmp)
+        return max(tmp, key=get_key)
+
+    def __gt__(self, other):
+        return True
+
+
 if __name__ == '__main__':
     a = Student(name="Asd Qwe", subjects_file=Path("subjects.csv"))
-    a.add_subject("Литература", grade=3)
-    a.add_subject("История", test_score=56)
+    # a.add_subject("Литература", grade=3)
+    # a.add_subject("История", test_score=56)
     a.get_average_grade()
     a.get_subjects()
     b = Student(name="Asd Qasd", subjects_file=Path("subjects2.csv"))
-    Student.get_average_grades(a, b)
+    c = Student(name="Asd Aaasd", subjects_file=Path("subjects3.csv"))
+    print(*Student.get_average_grades(a, b).items(), sep="\n")
+    print(Student.get_top_student('Литература', a, b, c))
