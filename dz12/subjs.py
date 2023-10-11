@@ -3,7 +3,6 @@ from pathlib import Path
 
 CONTENT = """Математика,Физика,История,Литература"""
 
-
 def get_subjects(items: Path):
     global CONTENT
     try:
