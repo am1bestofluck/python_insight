@@ -16,18 +16,18 @@ SAMPLE = Path("../sem8/t2_out.json")
 
 class KnownUser:
     def __init__(self, name, id_, access):
-        self._name = name
-        self._id = id_
-        self._access = access
+        self.name = name
+        self.id = id_
+        self.access = access
 
     def __str__(self):
-        return f"K.U. {self._id}/{self._name}:{self._access}"
+        return f"K.U. {self.id}/{self.name}:{self.access}"
 
     def __repr__(self):
         return str(self)
 
     def __eq__(self, other: 'KnownUser'):
-        return other._id == self._id and other._name == self._name
+        return other.id == self.id and other.name == self.name
 
 
 def get_them_all(p: Path):
@@ -37,7 +37,7 @@ def get_them_all(p: Path):
         for group in tmp:
             tmp1 = tmp[group]
             for usr in tmp1:
-                out.append(KnownUser(name=usr, id_=tmp1[usr], access=group))
+                out.append(KnownUser(name=tmp1[usr], id_=int(usr), access=group))
     return out
 
 
