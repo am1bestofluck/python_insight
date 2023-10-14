@@ -1,4 +1,4 @@
-from t_3_Person import Person
+from dz13.t_3_Person import Person
 from dz13.t_2_ex import InvalidIdError, UserException
 
 
@@ -9,13 +9,22 @@ class Specialist(Person):
         Сотрудники имеют также уникальный идентификационный номер (ID),
         который должен быть шестизначным положительным целым числом.
         """
-        self.check_digit(id_, 10 ** 5, 10 ** 6-1)
-        self.id_ = id_
+        self.check_digit(id_, 10 ** 5, 10 ** 6 - 1)
+        self._id = id_
         super().__init__(firname, lasname, fatname, age)
+
+    @property
+    def id_(self):
+        return self._id
+
+    @id_.setter
+    def id_(self, new_val):
+        self.check_digit(new_val, 10 ** 5, 10 ** 6 - 1)
+        self._id = new_val
 
     @staticmethod
     def check_digit(item: int, lower: int = 0, upper: int = 100):
-        if not isinstance(item, int) or item not in range(lower, upper+1):
+        if not isinstance(item, int) or item not in range(lower, upper + 1):
             raise InvalidIdError(item, lower, upper)
 
     def get_level(self):

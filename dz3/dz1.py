@@ -22,5 +22,9 @@ def main():
         print(f"{out=}")
 
 
+def testable(ints: list[int]):
+    return sorted(get_noise(ints))
+
+
 if __name__ == '__main__':
     main()

@@ -7,7 +7,7 @@ def gfib():
     a, b = 0, 1
     while True:
         a, b = b, a + b
-        yield a, bппп
+        yield a, b
 
 
 inf = iter(gfib())

@@ -14,12 +14,21 @@ class Person:
         self.fir_name = firname
         self.las_name = lasname
         self.fat_name = fatname
-        self.age = age
+        self._age = age
 
     @staticmethod
     def check_digit(item: int, lower: int = 0, upper: int = 100):
-        if not isinstance(item, int) or item not in range(lower, upper+1):
+        if not isinstance(item, int) or item not in range(lower, upper + 1):
             raise InvalidNumberError(item)
+
+    @property
+    def age(self):
+        return self._age
+
+    @age.setter
+    def age(self, new):
+        Person.check_digit(new)
+        self._age = new
 
     @staticmethod
     def check_string(*args):
@@ -33,7 +42,7 @@ class Person:
         self.age += 1
 
     def __str__(self):
-        return "correct"
+        return f"{self.las_name} {self.fir_name} {self.fat_name}, {self.age} лет."
 
 
 def main():
