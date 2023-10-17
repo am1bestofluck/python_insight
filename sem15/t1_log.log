@@ -1,0 +1,2 @@
+ERROR:root:Second argument to a division or modulo operation was zero.
+ERROR:root:("it's ok",)
