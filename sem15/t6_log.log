@@ -1,0 +1,4 @@
+INFO:root:{'name': 'sem15', 'extension': None, 'is_dir_': True, 'parent_folder': 'python_insight'}
+INFO:root:{'name': 't_6', 'extension': '.py', 'is_dir_': False, 'parent_folder': 'sem15'}
+INFO:root:{'name': 't_6', 'extension': '.py', 'is_dir_': False, 'parent_folder': 'sem15'}
+INFO:root:{'name': 't_6', 'extension': '.py', 'is_dir_': False, 'parent_folder': 'sem15'}
